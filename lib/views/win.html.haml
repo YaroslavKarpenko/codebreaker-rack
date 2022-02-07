@@ -1,0 +1,41 @@
+%section#introduction
+  .container
+    .row.fill-viewport.align-items-center.justify-content-center
+      .col-12.col-md-6
+        .row
+          .col-md-auto
+            %h1.text-white.title.inline-block
+              = I18n.t("main.title")
+        .row
+          .col.button
+            %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+              = I18n.t("main.level")
+              = ':'
+              %span.badge.badge-light
+                = level(@current_session.game_session)
+            %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+              = I18n.t("conditions.attempts")
+              = ':'
+              %span.badge.badge-light
+                = @current_session.game_session.user.attempts
+                = '/'
+                = level_configuration(@current_session.game_session, :attempts)
+            %button.btn.btn-primary{:disabled => "disabled", :type => "button"}
+              = I18n.t("conditions.hints")
+              = ':'
+              %span.badge.badge-light
+                = @current_session.game_session.user.hints
+                = '/'
+                = level_configuration(@current_session.game_session, :hints)
+        %hr.mb-4/
+        .row
+          .text-center
+            .text-center
+              %h3.text-white
+                = I18n.t("messages.win", name: @current_session.game_session.user.name)
+            %img.img-fluid{:src => "assets/images/won.gif"}/
+        %hr.mb-4/
+        %a.btn.btn-primary.btn-lg{:href => PathConstants::ROOT, :role => "button"}
+          = I18n.t("buttons.play_again")
+        %a.btn.btn-success.btn-lg.float-right{:href => PathConstants::STATISTICS, :role => "button"}
+          = I18n.t("buttons.statistics")

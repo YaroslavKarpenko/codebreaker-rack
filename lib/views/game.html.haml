@@ -1,0 +1,54 @@
+%section#introduction
+  .container
+    .row.fill-viewport.align-items-center.justify-content-center
+      .col-12.col-md-6
+        .row
+          .col-md-auto
+            %h1.text-white.title
+              = I18n.t("main.title")
+        %p.lead.text-white-70
+          = I18n.t("main.hello", name: @current_session.game_session.user.name)
+        %hr.mb-4/
+        .row
+          .col.button
+            %button.btn.btn-primary{:type => "button"}
+              = I18n.t("main.level")
+              = ':'
+              %span.badge.badge-light
+                = -level(@current_session.game_session)
+          .col.text-center.button
+            %button.btn.btn-primary{:disabled => !@current_session.game_session.check_for_attempts?, :type => "button", :id=> "attempts"}
+              = I18n.t("conditions.attempts")
+              = ':'
+              %span.badge.badge-light
+                = @current_session.game_session.user.attempts
+          .col.button
+            %button.btn.btn-primary.float-right{:disabled => !@current_session.game_session.check_for_hints?, :type => "button"}
+              = I18n.t("conditions.hints")
+              = ':'
+              %span.badge.badge-light
+                = @current_session.game_session.user.hints
+        %hr.mb-4/
+        %form{:action => PathConstants::GUESS, :method => "post"}
+          .form-group
+            %input.form-control.guess_input{:autocomplete => "off", :name => "number", :pattern => "^[1-6]{4}$", :placeholder => "1234", :required => ""}/
+          .form-group.guess_markers_list
+            #guess_marker
+              - Codebreaker::Game::SECRET_CODE_LENGTH.times do |index|
+                - char = @current_session.matrix[index]
+                - if char == Codebreaker::Game::CORRECT_POSITION_SYMBOL
+                  %button.btn.btn-success.marks{:disabled => "disabled", :type => "button"}
+                    = char                
+                - elsif char == Codebreaker::Game::INCLUSION_SYMBOL
+                  %button.btn.btn-primary.marks{:disabled => "disabled", :type => "button"}
+                    = char
+                - else 
+                  %button.btn.btn-danger.marks{:disabled => "disabled", :type => "button"} x
+          %hr.mb-4/
+          %button.btn.btn-primary.btn-lg{:type => "submit"}
+            = I18n.t("buttons.submit")
+          %a.btn.btn-warning.btn-lg.float-right{:href => PathConstants::HINT, :role => "button"}
+            = I18n.t("buttons.take_a_hint")
+            - @current_session.hints.each do |hint|
+              %span.badge.badge-light
+                = hint
