@@ -65,7 +65,6 @@ workflows:
       - run_specs:
           requires:
             - lintering
-version: 2.1
 
 executors:
   default:
