@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 class Game
   include SessionData
   attr_accessor :game_session
@@ -10,11 +11,8 @@ class Game
   end
 
   def add_hint
-
     @request.session[:hints] << @game_session.use_hint
     save_game_data
-
-    
   end
 
   def start_game_session
@@ -31,7 +29,6 @@ class Game
   def save_game_data
     game_session_id = save_game_session(game_session)
     @request.session[:id] = game_session_id
-    
   end
 
   def reset_game_session_data
@@ -55,7 +52,6 @@ class Game
 
   def set_matrix
     @game_session.display_matrix(@request.params['number'].chars.map(&:to_i))
-    
   end
 
   def set_game_configuration
