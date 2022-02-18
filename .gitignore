@@ -1,0 +1,5 @@
+lib/models/session_id
+spec
+Procfile
+storage
+coverage

@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+require 'codebreaker'
+require 'i18n'
+require 'haml'
+require 'delegate'
+require 'rack'
+require 'rack/test'
+
+require_relative '../bin/bundler'
+require_relative '../config/config'
+require_relative 'helpers/web_helper'
+require_relative 'models/session_data'
+require_relative 'helpers/path_constants'
+require_relative 'helpers/level_helper'
+require_relative 'app/game'
+require_relative 'controllers/basic_controller'
+require_relative 'controllers/game_controller'
+require_relative 'controllers/rules_controller'
+require_relative 'controllers/statistics_controller'
+require_relative 'app/application'
